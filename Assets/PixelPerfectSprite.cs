@@ -15,9 +15,6 @@ public class PixelPerfectSprite : MonoBehaviour
         int h = mSourceSprite.texture.height;
         if (w % 2 != 0) { Debug.Log("ERROR: Pixel perfect sprite's width must be even!"); }
         if (h % 2 != 0) { Debug.Log("ERROR: Pixel perfect sprite's height must be even!"); }
-        Debug.Log(w);
-        Debug.Log(h);
-        Debug.Log(Common.Scale);
         Color[] originalPixels = mSourceSprite.texture.GetPixels();
         List<Color> pixels = new List<Color>(w * Common.Scale * h * Common.Scale);
         List<Color> row = new List<Color>(w * Common.Scale);
