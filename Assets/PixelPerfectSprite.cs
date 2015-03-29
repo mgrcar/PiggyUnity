@@ -40,8 +40,8 @@ public class PixelPerfectSprite : MonoBehaviour
             1
         );
         gameObject.transform.position = new Vector3(
-            Common.Scale * gameObject.transform.position.x,
-            Common.Scale * gameObject.transform.position.y,
+            (float)Common.Scale * gameObject.transform.position.x,
+            (float)Common.Scale * gameObject.transform.position.y,
             gameObject.transform.position.z
         );
     }
