@@ -1,0 +1,8 @@
+Library
+obj
+Temp
+Build
+*.bak
+*.suo
+*.sln
+*.csproj
