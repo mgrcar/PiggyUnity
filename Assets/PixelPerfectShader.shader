@@ -53,8 +53,8 @@
 				v2f OUT;
 				OUT.vertex = mul(UNITY_MATRIX_MVP, IN.vertex);
 				#ifdef UNITY_HALF_TEXEL_OFFSET
-				OUT.vertex.x -= 1.0 / (double)160 / 2.0;
-				OUT.vertex.y += 1.0 / (double)240 / 2.0;
+				OUT.vertex.x -= 1.0 / (double)_ScreenParams.x;
+				OUT.vertex.y += 1.0 / (double)_ScreenParams.y;
 				#endif
 				OUT.texcoord = IN.texcoord;
 				OUT.color = IN.color * _Color;
