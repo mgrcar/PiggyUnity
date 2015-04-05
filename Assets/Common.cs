@@ -40,6 +40,7 @@ public class Common
             row.Clear();
         }
         Texture2D texture = new Texture2D(w * Scale, h * Scale, srcTexture.format, mipmap: false);
+        texture.wrapMode = srcTexture.wrapMode;
         texture.SetPixels(pixels.ToArray());
         texture.Apply();
         return Sprite.Create(
