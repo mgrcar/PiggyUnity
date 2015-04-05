@@ -34,7 +34,7 @@ public class Common
     public static readonly float AngleMax
         = AngleRange + 1.57079632679f - AngleRange / 2f;
     public static readonly float AngleMin
-        = -AngleRange + 1.57079632679f - AngleRange / 2f;
+        = 1.57079632679f - AngleRange / 2f;
 
     public static Sprite CreateSpriteFrom(Texture2D srcTexture)
     {
