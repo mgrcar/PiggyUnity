@@ -25,9 +25,18 @@ public class Common
         = 160;
     public static readonly int BackgroundHeight
         = 240;
+
     public static readonly int NumSnowflakes
         = 500;
-    
+    public static readonly double AngleRange
+        = 0.2;
+    public static readonly double AngleChange
+        = 0.02;
+    public static readonly double AngleMax
+        = AngleRange + 1.5708 - AngleRange / 2.0;
+    public static readonly double AngleMin
+        = -AngleRange + 1.5708 - AngleRange / 2.0;
+
     public static Sprite CreateSpriteFrom(Texture2D srcTexture)
     {
         int w = srcTexture.width;
@@ -59,6 +68,11 @@ public class Common
             new Vector2(0.5f, 0.5f),
             1
         );
+    }
+
+    public static double ScaleDouble(double x)
+    {
+        return (double)Scale * x;
     }
 
     public static Vector3 SnapTo(float x, float y, float z, Snap snapTo)
