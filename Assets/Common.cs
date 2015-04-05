@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,9 +13,9 @@ public class Common
 
     static Common()
     {
-        int s1 = (int)Math.Floor((double)Screen.width / (double)BackgroundWidth);
-        int s2 = (int)Math.Ceiling((double)Screen.width / (double)BackgroundWidth);
-        Scale = Math.Abs(s1 * BackgroundWidth - Screen.width) > Math.Abs(s2 * BackgroundWidth - Screen.width) ? s2 : s1;
+        int s1 = (int)Mathf.Floor((float)Screen.width / (float)BackgroundWidth);
+        int s2 = (int)Mathf.Ceil((float)Screen.width / (float)BackgroundWidth);
+        Scale = Mathf.Abs(s1 * BackgroundWidth - Screen.width) > Mathf.Abs(s2 * BackgroundWidth - Screen.width) ? s2 : s1;
     }
 
     public static readonly int Scale;
@@ -28,14 +27,14 @@ public class Common
 
     public static readonly int NumSnowflakes
         = 500;
-    public static readonly double AngleRange
-        = 0.2;
-    public static readonly double AngleChange
-        = 0.02;
-    public static readonly double AngleMax
-        = AngleRange + 1.5708 - AngleRange / 2.0;
-    public static readonly double AngleMin
-        = -AngleRange + 1.5708 - AngleRange / 2.0;
+    public static readonly float AngleRange
+        = 0.2f;
+    public static readonly float AngleChange
+        = 0.02f;
+    public static readonly float AngleMax
+        = AngleRange + 1.57079632679f - AngleRange / 2f;
+    public static readonly float AngleMin
+        = -AngleRange + 1.57079632679f - AngleRange / 2f;
 
     public static Sprite CreateSpriteFrom(Texture2D srcTexture)
     {
@@ -76,14 +75,14 @@ public class Common
         {
             case Snap.BigPixel:
                 return new Vector3(
-                    (float)Math.Round(x) * (float)Common.Scale,
-                    (float)Math.Round(y) * (float)Common.Scale,
+                    Mathf.Round(x) * (float)Common.Scale,
+                    Mathf.Round(y) * (float)Common.Scale,
                     z
                 );
             case Snap.SmallPixel:
                 return new Vector3(
-                    (float)Math.Round(x * (float)Common.Scale),
-                    (float)Math.Round(y * (float)Common.Scale),
+                    Mathf.Round(x * (float)Common.Scale),
+                    Mathf.Round(y * (float)Common.Scale),
                     z
                 );
             default:

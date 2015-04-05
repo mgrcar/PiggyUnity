@@ -2,8 +2,8 @@
 
 public class SnowflakeProperties : MonoBehaviour 
 {
-    public double Angle
+    public float Angle
         = 0;
-    public double Speed
+    public float Speed
         = 0;
 }
