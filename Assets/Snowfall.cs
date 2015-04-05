@@ -24,7 +24,7 @@ public class Snowfall : MonoBehaviour
             renderer.sprite = Math.Round(Rnd.NextDouble()) == 0 ? snowflake1 : snowflake2;
             SnowflakeProperties prop = snowflake.GetComponent<SnowflakeProperties>();
             prop.Angle = Rnd.NextDouble() * Common.AngleRange + 1.5708 - Common.AngleRange / 2.0;
-            prop.Speed = Rnd.NextDouble() * Common.ScaleDouble(0.1) + Common.ScaleDouble(0.1);
+            prop.Speed = Rnd.NextDouble() * 0.2 + 0.2;
         }
 	}
 

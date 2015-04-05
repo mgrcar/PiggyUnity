@@ -70,11 +70,6 @@ public class Common
         );
     }
 
-    public static double ScaleDouble(double x)
-    {
-        return (double)Scale * x;
-    }
-
     public static Vector3 SnapTo(float x, float y, float z, Snap snapTo)
     {
         switch (snapTo)
