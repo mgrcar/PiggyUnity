@@ -23,6 +23,7 @@ public class Snowfall : MonoBehaviour
             SnowflakeProperties prop = snowflake.GetComponent<SnowflakeProperties>();
             prop.Angle = Rnd.value * Common.AngleRange + 1.57079632679f - Common.AngleRange / 2f;
             prop.Speed = Rnd.value * 0.2f + 0.2f;
+            if (prop.Speed < 0.3) { snowflake.transform.position = snowflake.transform.position + new Vector3(0, 0, 3); }
         }
 	}
 
