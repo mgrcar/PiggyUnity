@@ -5,6 +5,13 @@ using UnityEngine;
 
 public class Common 
 {
+    public enum Snap
+    {
+        BigPixel,
+        SmallPixel,
+        Subpixel
+    }
+
     static Common()
     {
         int s1 = (int)Math.Floor((double)Screen.width / (double)BackgroundWidth);
@@ -12,12 +19,15 @@ public class Common
         Scale = Math.Abs(s1 * BackgroundWidth - Screen.width) > Math.Abs(s2 * BackgroundWidth - Screen.width) ? s2 : s1;
     }
 
-    public static readonly int BackgroundWidth 
-        = 160;
-    public static readonly int NumFlakes
-        = 500;
     public static readonly int Scale;
 
+    public static readonly int BackgroundWidth 
+        = 160;
+    public static readonly int BackgroundHeight
+        = 240;
+    public static readonly int NumSnowflakes
+        = 500;
+    
     public static Sprite CreateSpriteFrom(Texture2D srcTexture)
     {
         int w = srcTexture.width;
@@ -49,5 +59,30 @@ public class Common
             new Vector2(0.5f, 0.5f),
             1
         );
+    }
+
+    public static Vector3 SnapTo(float x, float y, float z, Snap snapTo)
+    {
+        switch (snapTo)
+        {
+            case Snap.BigPixel:
+                return new Vector3(
+                    (float)Math.Round(x) * (float)Common.Scale,
+                    (float)Math.Round(y) * (float)Common.Scale,
+                    z
+                );
+            case Snap.SmallPixel:
+                return new Vector3(
+                    (float)Math.Round(x * (float)Common.Scale),
+                    (float)Math.Round(y * (float)Common.Scale),
+                    z
+                );
+            default:
+                return new Vector3(
+                    x * (float)Common.Scale,
+                    y * (float)Common.Scale,
+                    z
+                );
+        }
     }
 }

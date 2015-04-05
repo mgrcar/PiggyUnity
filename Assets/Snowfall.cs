@@ -10,11 +10,14 @@ public class Snowfall : MonoBehaviour
         
         System.Random rnd = new System.Random();
 
-        for (var i = 0; i < Common.NumFlakes; i++) 
+        for (var i = 0; i < Common.NumSnowflakes; i++) 
         {
-            float x = (float)(rnd.NextDouble() * (double)Screen.width - (double)Screen.width / 2.0);
-            float y = (float)(rnd.NextDouble() * (double)Screen.height - (double)Screen.height / 2.0);
-            GameObject snowflake = (GameObject)UnityEngine.Object.Instantiate(GameObject.Find("Snowflake"), new Vector3(x, y, -1), new Quaternion());
+            double bw = Common.BackgroundWidth;
+            double bh = Common.BackgroundHeight;
+            float x = (float)(rnd.NextDouble() * bw - bw / 2.0);
+            float y = (float)(rnd.NextDouble() * bh - bh / 2.0);
+            GameObject snowflake = (GameObject)UnityEngine.Object.Instantiate(GameObject.Find("Snowflake"));
+            snowflake.GetComponent<PixelPerfectPosition>().SetPosition(x, y);
             SpriteRenderer renderer = snowflake.GetComponent<SpriteRenderer>();
             renderer.sprite = Math.Round(rnd.NextDouble()) == 0 ? snowflake1 : snowflake2;
             //sprite.$angle = Math.random() * angleRange + 1.5708 - angleRange / 2;
