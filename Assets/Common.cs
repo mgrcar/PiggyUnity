@@ -93,4 +93,19 @@ public class Common
                 );
         }
     }
+
+    public static void CopyPixels(Color[] src, Color[] dest, int srcWidth, int destWidth, int xs, int ys, int w, int h, int xt, int yt)
+    {
+        for (int ya = 0; ya < h; ya++)
+        {
+            int Ys = ys + ya;
+            int Yt = yt + ya;
+            for (int xa = 0; xa < w; xa++)
+            {
+                int Xs = xs + xa;
+                int Xt = xt + xa;
+                dest[Xt + destWidth * Yt] = src[Xs + srcWidth * Ys];
+            }
+        }
+    }
 }
