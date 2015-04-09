@@ -12,8 +12,6 @@ public class FontInfo
     public string    Chars;
     public int       CharWidth;
     public int       LineHeight;
-    public int       XSpacing;
-    public int       YSpacing;
     public Texture2D Texture; 
 }
 
@@ -29,8 +27,6 @@ public static class Fonts
             Chars        = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_£abcdefghijklmnopqrstuvwxyz{|}~©",
             CharWidth    = 8,
             LineHeight   = 8,
-            XSpacing     = 0,
-            YSpacing     = 1,
             Texture      = (Texture2D)Resources.Load("default_font")
         });
     }   
