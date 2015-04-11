@@ -25,7 +25,7 @@ public class PixelPerfectText : MonoBehaviour
     public VerticalTextAlignment VerticalAlignment
         = VerticalTextAlignment.Center;
 
-    float AnchorX(HorizontalTextAlignment textAlignment)
+    private float AnchorX(HorizontalTextAlignment textAlignment)
     {
         switch (textAlignment)
         { 
@@ -38,7 +38,7 @@ public class PixelPerfectText : MonoBehaviour
         }
     }
 
-    float AnchorY(VerticalTextAlignment textAlignment)
+    private float AnchorY(VerticalTextAlignment textAlignment)
     {
         switch (textAlignment)
         {
@@ -51,11 +51,16 @@ public class PixelPerfectText : MonoBehaviour
         }
     }
 
-    void Start() 
+    private void Start() 
+    {
+        SetText(Text);
+	}
+
+    public void SetText(string text)
     {
         // get font info
         FontInfo fontInfo = Fonts.GetFontInfo(Font);
-        int textWidth  = fontInfo.CharWidth * Text.Length;
+        int textWidth = fontInfo.CharWidth * text.Length;
         int textHeight = fontInfo.LineHeight;
         if (textWidth % 2 != 0 || textHeight % 2 != 0) { Debug.Log("WARNING: Pixel perfect text's dimensions are not even!"); }
         Color[] srcPixels = fontInfo.Texture.GetPixels();
@@ -65,7 +70,7 @@ public class PixelPerfectText : MonoBehaviour
         Color[] destPixels = destTexture.GetPixels();
         // copy chars to dest
         int destX = 0;
-        foreach (char ch in Text) 
+        foreach (char ch in text)
         {
             int idx = fontInfo.Chars.IndexOf(ch);
             int x = idx * fontInfo.CharWidth;
@@ -77,5 +82,11 @@ public class PixelPerfectText : MonoBehaviour
         destTexture.Apply();
         SpriteRenderer renderer = gameObject.GetComponent<SpriteRenderer>();
         renderer.sprite = Common.CreateSpriteFrom(destTexture, AnchorX(HorizontalAlignment), AnchorY(VerticalAlignment));
-	}
+        gameObject.transform.position = Common.SnapTo(
+            gameObject.transform.position.x,
+            gameObject.transform.position.y,
+            gameObject.transform.position.z,
+            Common.Snap.Subpixel
+        );
+    }
 }
