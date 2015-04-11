@@ -41,12 +41,11 @@ public class Common
     public static readonly float AngleMin
         = 1.57079632679f - AngleRange / 2f;
 
-    public static Sprite CreateSpriteFrom(Texture2D srcTexture)
+    public static Sprite CreateSpriteFrom(Texture2D srcTexture, float anchorX = 0.5f, float anchorY = 0.5f)
     {
         int w = srcTexture.width;
         int h = srcTexture.height;
-        if (w % 2 != 0) { Debug.Log("ERROR: Pixel perfect sprite's width must be even!"); }
-        if (h % 2 != 0) { Debug.Log("ERROR: Pixel perfect sprite's height must be even!"); }
+        if (w % 2 != 0 || h % 2 != 0) { Debug.Log("WARNING: Pixel perfect sprite's dimensions are not even!"); }
         Color[] originalPixels = srcTexture.GetPixels();
         List<Color> pixels = new List<Color>(w * Scale * h * Scale);
         List<Color> row = new List<Color>(w * Scale);
@@ -69,7 +68,7 @@ public class Common
         return Sprite.Create(
             texture,
             new Rect(0, 0, texture.width, texture.height),
-            new Vector2(0.5f, 0.5f),
+            new Vector2(anchorX, anchorY),
             1
         );
     }
