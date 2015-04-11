@@ -11,8 +11,8 @@ public class Snowfall : MonoBehaviour
         
         for (var i = 0; i < Common.NumSnowflakes; i++) 
         {
-            float bw = Common.BackgroundWidth;
-            float bh = Common.BackgroundHeight;
+            float bw = Common.ScreenWidth;
+            float bh = Common.ScreenHeight;
             float x = Rnd.value * bw - bw / 2f;
             float y = Rnd.value * bh - bh / 2f;
             GameObject snowflake = (GameObject)UnityEngine.Object.Instantiate(GameObject.Find("Snowflake"));
@@ -37,8 +37,8 @@ public class Snowfall : MonoBehaviour
             pos.Y = pos.Y - prop.Speed * Mathf.Sin(prop.Angle);
             prop.Angle += (Rnd.value * 2f - 1f) * Common.AngleChange;
             prop.Angle = Mathf.Max(Common.AngleMin, Mathf.Min(Common.AngleMax, prop.Angle));
-            float hbh = (float)Common.BackgroundHeight / 2f + 5f;
-            float bw = Common.BackgroundWidth;
+            float hbh = Common.ScreenHeight / 2f + 5f;
+            float bw = Common.ScreenWidth;
             if (pos.Y < -hbh) 
             { 
                 pos.Y = hbh;
