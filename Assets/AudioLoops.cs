@@ -5,39 +5,39 @@ public class AudioLoops : MonoBehaviour
 {
     private class Loop
     {
-        private AudioSource[] AudioSources;
-        private int CurrentAudioSourceIdx
+        private AudioSource[] audioSources;
+        private int currentAudioSourceIdx
             = 0;
 
         public Loop(AudioSource audioSrc)
         {
-            AudioSources = new[] { audioSrc, CloneAudioSource(audioSrc) };
+            audioSources = new[] { audioSrc, CloneAudioSource(audioSrc) };
         }
 
         public AudioSource CurrentAudioSource
         {
-            get { return AudioSources[CurrentAudioSourceIdx]; }
+            get { return audioSources[currentAudioSourceIdx]; }
         }
 
         public AudioSource OtherAudioSource
         {
-            get { return AudioSources[1 - CurrentAudioSourceIdx]; }
+            get { return audioSources[1 - currentAudioSourceIdx]; }
         }
 
         public void Swap()
         {
-            CurrentAudioSourceIdx = 1 - CurrentAudioSourceIdx;
+            currentAudioSourceIdx = 1 - currentAudioSourceIdx;
         }
     }
 
-    private double NextEventTime;
-    private Loop[] Loops;
-    private int CurrentLoopIdx 
+    private double nextEventTime;
+    private Loop[] loops;
+    private int currentLoopIdx 
         = 0;
 
     private Loop CurrentLoop
     {
-        get { return Loops[CurrentLoopIdx]; }
+        get { return loops[currentLoopIdx]; }
     }
 
     private static AudioSource CloneAudioSource(AudioSource audioSrc)
@@ -51,25 +51,25 @@ public class AudioLoops : MonoBehaviour
 
     private void Start()
     {
-        Loops = gameObject.GetComponents<AudioSource>().Select(audioSrc => new Loop(audioSrc)).ToArray();
+        loops = gameObject.GetComponents<AudioSource>().Select(audioSrc => new Loop(audioSrc)).ToArray();
         CurrentLoop.CurrentAudioSource.Play();
-        NextEventTime = AudioSettings.dspTime + (double)CurrentLoop.CurrentAudioSource.clip.length;
+        nextEventTime = AudioSettings.dspTime + (double)CurrentLoop.CurrentAudioSource.clip.length;
     }
 
     private void FixedUpdate()
     {
         var time = AudioSettings.dspTime;
-        if (time + 1.0 > NextEventTime)
+        if (time + 1.0 > nextEventTime)
         {
-            CurrentLoop.OtherAudioSource.PlayScheduled(NextEventTime);
-            NextEventTime += (double)CurrentLoop.OtherAudioSource.clip.length;
+            CurrentLoop.OtherAudioSource.PlayScheduled(nextEventTime);
+            nextEventTime += (double)CurrentLoop.OtherAudioSource.clip.length;
             CurrentLoop.Swap();
         }
     }
 
     public int LoopIndex
     {
-        get { return CurrentLoopIdx; }
-        set { CurrentLoopIdx = value; }
+        get { return currentLoopIdx; }
+        set { currentLoopIdx = value; }
     }
 }
