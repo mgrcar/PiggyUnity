@@ -1,4 +1,4 @@
-﻿Shader "Sprites/PixelPerfect"
+Shader "Sprites/PixelPerfect"
 {
 	Properties
 	{
@@ -21,15 +21,14 @@
 		Cull Off
 		Lighting Off
 		ZWrite Off
-		Fog { Mode Off }
-		Blend SrcAlpha OneMinusSrcAlpha
+		Blend One OneMinusSrcAlpha
 
 		Pass
 		{
 		CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
-			#pragma multi_compile DUMMY PIXELSNAP_ON
+			#pragma multi_compile _ PIXELSNAP_ON
 			#include "UnityCG.cginc"
 			
 			struct appdata_t
@@ -53,8 +52,8 @@
 				v2f OUT;
 				OUT.vertex = mul(UNITY_MATRIX_MVP, IN.vertex);
 				#ifdef UNITY_HALF_TEXEL_OFFSET
-				OUT.vertex.x -= 1.0 / (double)_ScreenParams.x;
-				OUT.vertex.y += 1.0 / (double)_ScreenParams.y;
+				OUT.vertex.x -= (float)1 / _ScreenParams.x;
+				OUT.vertex.y += (float)1 / _ScreenParams.y;
 				#endif
 				OUT.texcoord = IN.texcoord;
 				OUT.color = IN.color * _Color;
@@ -67,9 +66,11 @@
 
 			sampler2D _MainTex;
 
-			fixed4 frag(v2f IN) : COLOR
+			fixed4 frag(v2f IN) : SV_Target
 			{
-				return tex2D(_MainTex, IN.texcoord) * IN.color;
+				fixed4 c = tex2D(_MainTex, IN.texcoord) * IN.color;
+				c.rgb *= c.a;
+				return c;
 			}
 		ENDCG
 		}
