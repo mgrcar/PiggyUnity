@@ -10,7 +10,16 @@ public class PixelPerfectButton : MonoBehaviour
         TouchUp
     }
 
-    public Sprite ButtonDownSprite
+    public Sprite buttonDownSprite
+        = null;
+    private Sprite buttonUpSprite
+        = null;
+    
+    private bool buttonDown 
+        = false;
+
+    public delegate void OnButtonPressedHandler();
+    public event OnButtonPressedHandler OnButtonPressed
         = null;
 
     private void Start()
@@ -23,37 +32,30 @@ public class PixelPerfectButton : MonoBehaviour
             gameObject.transform.position.z,
             Common.Snap.Subpixel
         );
-        ButtonDownSprite = Common.CreateSpriteFrom(ButtonDownSprite.texture);
+        buttonDownSprite = Common.CreateSpriteFrom(buttonDownSprite.texture);
+		gameObject.AddComponent<BoxCollider2D>(); // TODO: replace this with an alpha collider
+		buttonUpSprite = renderer.sprite;
     }
 
-    private void TouchOrClick(EventType eventType, float x, float y)
-    {
-        float X = x / (float)Common.Scale;
-        float Y = y / (float)Common.Scale;
-        Debug.Log(eventType.ToString() + " @ " + X + "," + Y);
-    }
+	private void OnMouseDown() 
+	{
+		gameObject.GetComponent<SpriteRenderer>().sprite = buttonDownSprite;
+        buttonDown = true;
+	}
 
-    private void Update()
+	private void OnMouseUp() 
+	{
+        if (buttonDown)
+        {
+            gameObject.GetComponent<SpriteRenderer>().sprite = buttonUpSprite;
+            buttonDown = false;
+            if (OnButtonPressed != null) { OnButtonPressed(); }
+        }
+	}
+
+    private void OnMouseExit()
     {
-        if (Input.touchCount > 0)
-        {
-            Touch touch = Input.GetTouch(0);
-            if (touch.phase == TouchPhase.Began)
-            {
-                TouchOrClick(EventType.TouchDown, touch.position.x, touch.position.y);
-            }
-            else if (Input.GetTouch(0).phase == TouchPhase.Ended)
-            {
-                TouchOrClick(EventType.TouchUp, touch.position.x, touch.position.y);
-            }
-        }
-        else if (Input.GetMouseButtonDown(0))
-        {
-            TouchOrClick(EventType.ButtonDown, Input.mousePosition.x, Input.mousePosition.y);
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            TouchOrClick(EventType.ButtonUp, Input.mousePosition.x, Input.mousePosition.y);
-        }
+        gameObject.GetComponent<SpriteRenderer>().sprite = buttonUpSprite;
+        buttonDown = false;
     }
 }
