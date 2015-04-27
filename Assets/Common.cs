@@ -13,9 +13,12 @@ public class Common
 
     static Common()
     {
+        //int s1 = (int)Mathf.Floor((float)Screen.width / (float)BackgroundWidth);
+        //int s2 = (int)Mathf.Ceil((float)Screen.width / (float)BackgroundWidth);
+        //Scale = Mathf.Abs(s1 * BackgroundWidth - Screen.width) > Mathf.Abs(s2 * BackgroundWidth - Screen.width) ? s2 : s1;
         int s1 = (int)Mathf.Floor((float)Screen.width / (float)BackgroundWidth);
-        int s2 = (int)Mathf.Ceil((float)Screen.width / (float)BackgroundWidth);
-        Scale = Mathf.Abs(s1 * BackgroundWidth - Screen.width) > Mathf.Abs(s2 * BackgroundWidth - Screen.width) ? s2 : s1;
+        int s2 = (int)Mathf.Floor((float)Screen.height / (float)BackgroundHeight);
+        Scale = Mathf.Min(s1, s2);
         ScreenWidth = (float)Screen.width / (float)Scale;
         ScreenHeight = (float)Screen.height / (float)Scale;
     }
