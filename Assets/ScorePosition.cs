@@ -8,5 +8,6 @@ public class ScorePosition : MonoBehaviour
             Common.ScreenWidth / 2f, 
             Common.ScreenHeight / 2f
         );
+        gameObject.GetComponent<SpriteRenderer>().enabled = true;
 	}
 }

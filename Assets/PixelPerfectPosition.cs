@@ -11,7 +11,14 @@ public class PixelPerfectPosition : MonoBehaviour
     public int SubpixelLevels
         = 0;
 
-	void FixedUpdate() 
+    public void SetPosition(float x, float y)
+    {
+        X = x;
+        Y = y;
+        Update();
+    }
+
+    public void Update()
     {
         if (SnapTo == Common.Snap.Subpixel && SubpixelLevels != 0)
         {
@@ -25,11 +32,5 @@ public class PixelPerfectPosition : MonoBehaviour
         {
             gameObject.transform.position = Common.SnapTo(X, Y, gameObject.transform.position.z, SnapTo);
         }
-	}
-
-    public void SetPosition(float x, float y)
-    {
-        X = x;
-        Y = y;
     }
 }

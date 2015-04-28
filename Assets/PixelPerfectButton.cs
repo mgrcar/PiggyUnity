@@ -33,7 +33,7 @@ public class PixelPerfectButton : MonoBehaviour
             Common.Snap.Subpixel
         );
         buttonDownSprite = Common.CreateSpriteFrom(buttonDownSprite.texture);
-		gameObject.AddComponent<BoxCollider2D>(); // TODO: replace this with an alpha collider
+		gameObject.AddComponent<BoxCollider2D>(); 
 		buttonUpSprite = renderer.sprite;
     }
 
